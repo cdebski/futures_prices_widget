@@ -64,25 +64,28 @@ def color_scheme(ticker):
         return color
 
 
-# pulls futures contract data, calculates daily change
-# returns change as a %, and assigns it a color based on movement
-spx_movement = futures_movement('ES=F')
-spx_color = color_scheme('ES=F')
+def press_button():
+"""pulls futures contract data, calculates daily change,
+returns change as a %, and assigns it a color based on movement"""
+    
+    while True:
+        spx_movement = futures_movement('ES=F')
+        spx_color = color_scheme('ES=F')
 
-dow_movement = futures_movement('YM=F')
-dow_color = color_scheme('YM=F')
+        dow_movement = futures_movement('YM=F')
+        dow_color = color_scheme('YM=F')
 
-nsdq_movement = futures_movement('NQ=F')
-nsdq_color = color_scheme('NQ=F')
+        nsdq_movement = futures_movement('NQ=F')
+        nsdq_color = color_scheme('NQ=F')
 
-oil_movement = futures_movement('CL=F')
-oil_color = color_scheme('CL=F')
+        oil_movement = futures_movement('CL=F')
+        oil_color = color_scheme('CL=F')
 
-gold_movement = futures_movement('GC=F')
-gold_color = color_scheme('GC=F')
+        gold_movement = futures_movement('GC=F')
+        gold_color = color_scheme('GC=F')
 
-treas_movement = futures_movement('^TNX')
-treas_color = color_scheme('^TNX')
+        treas_movement = futures_movement('^TNX')
+        treas_color = color_scheme('^TNX')
 
 # creates widget window
 window = tk.Tk()
