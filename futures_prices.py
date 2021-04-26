@@ -2,16 +2,20 @@ import tkinter as tk
 from pandas_datareader import data as pdr
 
 
-def pull_data(ticker):
+class Futures:
+    def __init__(self, ticker):
+        self.ticker = ticker
+
+def pull_data(self):
     """pulls futures data from yahoo finance"""
 
-    return pdr.DataReader(ticker.upper(), data_source='yahoo')
+    return pdr.DataReader(self.ticker.upper(), data_source='yahoo')
 
 
-def price_change(data):
+def price_change(self):
     """calculates daily change in futures price"""
 
-    return (data / data.shift(1)) - 1
+    return (self.ticker / self.ticker.shift(1)) - 1
 
 
 def format(float):
@@ -21,28 +25,15 @@ def format(float):
     return str(round(float * 100, 2))
 
 
-def futures_movement(ticker):
+def futures_movement(self):
     """returns the movement of the provided futures 
     contract and names it given it's ticker"""
 
-    data = pull_data(ticker)
+    data = pull_data(self)
     movement = format(price_change(data)['Adj Close']
                       .iloc[-1])
 
-    if ticker == 'ES=F':
-        symbol = '$SPX'
-    elif ticker == 'YM=F':
-        symbol = '$DOW'
-    elif ticker == 'NQ=F':
-        symbol = '$IXIC'
-    elif ticker == 'CL=F':
-        symbol = 'Crude'
-    elif ticker == 'GC=F':
-        symbol = 'Gold'
-    else:
-        symbol = '10-Year'
-
-    movement = f'{symbol}: {movement}%'
+    movement = f'{self}: {movement}%'
     return movement
 
 
