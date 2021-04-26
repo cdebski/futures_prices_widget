@@ -65,9 +65,9 @@ def color_scheme(ticker):
 
 
 def press_button():
-"""pulls futures contract data, calculates daily change,
-returns change as a %, and assigns it a color based on movement"""
-    
+    """pulls futures contract data, calculates daily change,
+    returns change as a %, and assigns it a color based on movement"""
+
     while True:
         spx_movement = futures_movement('ES=F')
         spx_color = color_scheme('ES=F')
