@@ -29,7 +29,7 @@ class Futures:
         """returns the movement of the provided futures 
         contract and names it given it's ticker"""
 
-        data = pull_data(self)
+        data = Futures.pull_data(self)
         movement = format(price_change(data)['Adj Close']
                         .iloc[-1])
 
@@ -41,8 +41,8 @@ class Futures:
         """assigns a color to the movement of each futures
         contract"""
 
-        data = pull_data(ticker)
-        movement = price_change(data)['Adj Close'].iloc[-1]
+        data = Futures.pull_data(ticker)
+        movement = Futures.price_change(data)['Adj Close'].iloc[-1]
 
         if movement > 0:
             color = 'green'
