@@ -6,77 +6,77 @@ class Futures:
     def __init__(self, ticker):
         self.ticker = ticker
 
-def pull_data(self):
-    """pulls futures data from yahoo finance"""
+    def pull_data(self):
+        """pulls futures data from yahoo finance"""
 
-    return pdr.DataReader(self.ticker.upper(), data_source='yahoo')
-
-
-def price_change(self):
-    """calculates daily change in futures price"""
-
-    return (self.ticker / self.ticker.shift(1)) - 1
+        return pdr.DataReader(self.ticker.upper(), data_source='yahoo')
 
 
-def format(float):
-    """formats float as string that is a percentage 
-    multiplied by 100 rounded to two decimals ('xx.yy')"""
+    def price_change(self):
+        """calculates daily change in futures price"""
 
-    return str(round(float * 100, 2))
-
-
-def futures_movement(self):
-    """returns the movement of the provided futures 
-    contract and names it given it's ticker"""
-
-    data = pull_data(self)
-    movement = format(price_change(data)['Adj Close']
-                      .iloc[-1])
-
-    movement = f'{self}: {movement}%'
-    return movement
+        return (self.ticker / self.ticker.shift(1)) - 1
 
 
-def color_scheme(ticker):
-    """assigns a color to the movement of each futures
-    contract"""
+    def format(float):
+        """formats float as string that is a percentage 
+        multiplied by 100 rounded to two decimals ('xx.yy')"""
 
-    data = pull_data(ticker)
-    movement = price_change(data)['Adj Close'].iloc[-1]
-
-    if movement > 0:
-        color = 'green'
-        return color
-    elif movement == 0:
-        color = 'black'
-        return color
-    else:
-        color = 'red'
-        return color
+        return str(round(float * 100, 2))
 
 
-def press_button():
-    """pulls futures contract data, calculates daily change,
-    returns change as a %, and assigns it a color based on movement"""
+    def futures_movement(self):
+        """returns the movement of the provided futures 
+        contract and names it given it's ticker"""
 
-    while True:
-        spx_movement = futures_movement('ES=F')
-        spx_color = color_scheme('ES=F')
+        data = pull_data(self)
+        movement = format(price_change(data)['Adj Close']
+                        .iloc[-1])
 
-        dow_movement = futures_movement('YM=F')
-        dow_color = color_scheme('YM=F')
+        movement = f'{self}: {movement}%'
+        return movement
 
-        nsdq_movement = futures_movement('NQ=F')
-        nsdq_color = color_scheme('NQ=F')
 
-        oil_movement = futures_movement('CL=F')
-        oil_color = color_scheme('CL=F')
+    def color_scheme(ticker):
+        """assigns a color to the movement of each futures
+        contract"""
 
-        gold_movement = futures_movement('GC=F')
-        gold_color = color_scheme('GC=F')
+        data = pull_data(ticker)
+        movement = price_change(data)['Adj Close'].iloc[-1]
 
-        treas_movement = futures_movement('^TNX')
-        treas_color = color_scheme('^TNX')
+        if movement > 0:
+            color = 'green'
+            return color
+        elif movement == 0:
+            color = 'black'
+            return color
+        else:
+            color = 'red'
+            return color
+
+
+    def press_button():
+        """pulls futures contract data, calculates daily change,
+        returns change as a %, and assigns it a color based on movement"""
+
+        while True:
+            spx_movement = futures_movement('ES=F')
+            spx_color = color_scheme('ES=F')
+
+            dow_movement = futures_movement('YM=F')
+            dow_color = color_scheme('YM=F')
+
+            nsdq_movement = futures_movement('NQ=F')
+            nsdq_color = color_scheme('NQ=F')
+
+            oil_movement = futures_movement('CL=F')
+            oil_color = color_scheme('CL=F')
+
+            gold_movement = futures_movement('GC=F')
+            gold_color = color_scheme('GC=F')
+
+            treas_movement = futures_movement('^TNX')
+            treas_color = color_scheme('^TNX')
 
 # creates widget window
 window = tk.Tk()
