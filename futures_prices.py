@@ -30,7 +30,7 @@ class Futures:
         contract and names it given it's ticker"""
 
         data = Futures.pull_data(self)
-        movement = format(price_change(data)['Adj Close']
+        movement = format(Futures.price_change(data)['Adj Close']
                         .iloc[-1])
 
         movement = f'{self}: {movement}%'
