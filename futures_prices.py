@@ -1,5 +1,7 @@
 import tkinter as tk
+from tkinter.constants import BOTTOM
 from pandas_datareader import data as pdr
+import os
 
 
 def pull_data(ticker):
@@ -64,56 +66,64 @@ def color_scheme(ticker):
         return color
 
 
-def press_button():
-    """pulls futures contract data, calculates daily change,
-    returns change as a %, and assigns it a color based on movement"""
+spx_movement = futures_movement('ES=F')
+spx_color = color_scheme('ES=F')
 
-    while True:
-        spx_movement = futures_movement('ES=F')
-        spx_color = color_scheme('ES=F')
+dow_movement = futures_movement('YM=F')
+dow_color = color_scheme('YM=F')
 
-        dow_movement = futures_movement('YM=F')
-        dow_color = color_scheme('YM=F')
+nsdq_movement = futures_movement('NQ=F')
+nsdq_color = color_scheme('NQ=F')
 
-        nsdq_movement = futures_movement('NQ=F')
-        nsdq_color = color_scheme('NQ=F')
+oil_movement = futures_movement('CL=F')
+oil_color = color_scheme('CL=F')
 
-        oil_movement = futures_movement('CL=F')
-        oil_color = color_scheme('CL=F')
+gold_movement = futures_movement('GC=F')
+gold_color = color_scheme('GC=F')
 
-        gold_movement = futures_movement('GC=F')
-        gold_color = color_scheme('GC=F')
-
-        treas_movement = futures_movement('^TNX')
-        treas_color = color_scheme('^TNX')
+treas_movement = futures_movement('^TNX')
+treas_color = color_scheme('^TNX')
 
 # creates widget window
 window = tk.Tk()
 
 # assigns labels for each futures contract
 spx_lbl = tk.Label(window, text=spx_movement,
-                   fg=spx_color, font=('Verdana', 14))
+                   fg=spx_color, font=('Calibri', 16))
 spx_lbl.place(x=20, y=20)
 
 dow_lbl = tk.Label(window, text=dow_movement,
-                   fg=dow_color, font=('Verdana', 14))
+                   fg=dow_color, font=('Calibri', 16))
 dow_lbl.place(x=20, y=45)
 
 nsdq_lbl = tk.Label(window, text=nsdq_movement,
-                    fg=nsdq_color, font=('Verdana', 14))
+                    fg=nsdq_color, font=('Calibri', 16))
 nsdq_lbl.place(x=20, y=70)
 
 oil_lbl = tk.Label(window, text=oil_movement,
-                   fg=oil_color, font=('Verdana', 14))
+                   fg=oil_color, font=('Calibri', 16))
 oil_lbl.place(x=20, y=95)
 
 gold_lbl = tk.Label(window, text=gold_movement,
-                    fg=gold_color, font=('Verdana', 14))
+                    fg=gold_color, font=('Calibri', 16))
 gold_lbl.place(x=20, y=120)
 
 treas_lbl = tk.Label(window, text=treas_movement,
-                     fg=treas_color, font=('Verdana', 14))
+                     fg=treas_color, font=('Calibri', 16))
 treas_lbl.place(x=20, y=145)
+
+open = os.open('D:/Python/Projects/git_repos/futures_prices_widget/futures_prices.py', os.O_RDONLY)
+
+def refresh_button():
+    """closes widget and reopens to refresh data"""
+
+    window.destroy()
+    os.open(path, os.O_RDONLY)
+
+
+# creates button to refresh data
+refresh = tk.Button(window, text='Refresh', command=refresh_button)
+refresh.pack(side=BOTTOM)
 
 # gives widget metrics
 window.title('FUTURES PRICES')
